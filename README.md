@@ -1,5 +1,7 @@
 # GSE42568 — breast cancer expression analysis
 
+**English** ｜ [简体中文](README.zh-CN.md)
+
 > **Portfolio case study**
 >
 > End-to-end analysis of a public breast-cancer expression dataset, from GEO data acquisition through QC, differential expression, pathway enrichment, reproducible reporting and scientific QA.
