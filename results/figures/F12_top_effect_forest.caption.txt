@@ -1,0 +1,1 @@
+Black intervals are P1 95% confidence intervals; colored points show pre-specified sensitivity effects. Genes are selected from headline-eligible TREAT-priority results.

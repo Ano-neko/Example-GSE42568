@@ -1,0 +1,8 @@
+collection	status	role	source	source_version	license_status	universe_definition	universe_size	raw_gene_sets	eligible_gene_sets	min_size	max_size	ranking
+GO_BP_ORA	completed	primary_ORA	org.Hs.eg.db GOALL plus GO.db	org.Hs.eg.db 3.22.0; GO.db 3.22.0	allowed	P1-tested Entrez genes with at least one annotation in this ontology	15588	14899	6187	10	500	NA
+GO_CC_ORA	completed	supplement_ORA	org.Hs.eg.db GOALL plus GO.db	org.Hs.eg.db 3.22.0; GO.db 3.22.0	allowed	P1-tested Entrez genes with at least one annotation in this ontology	16428	2000	756	10	500	NA
+GO_MF_ORA	completed	supplement_ORA	org.Hs.eg.db GOALL plus GO.db	org.Hs.eg.db 3.22.0; GO.db 3.22.0	allowed	P1-tested Entrez genes with at least one annotation in this ontology	16139	5023	1233	10	500	NA
+Reactome_ORA	completed	pathway_ORA_replacement	reactome.db	1.95.0	allowed	P1-tested Entrez genes with at least one Reactome human pathway annotation	10178	2782	1658	10	500	NA
+Reactome_preranked_GSEA_fallback	completed	primary_GSEA_fallback	reactome.db	1.95.0	allowed	P1-tested Entrez genes with at least one Reactome human pathway annotation	10178	2782	1367	15	500	P1 moderated t, descending; exact ties by Entrez ID
+KEGG_ORA	not_run_license_gate	not_run	No KEGG resource accessed	NA	not_run_license_gate	NA	NA	NA	NA	NA	NA	NA
+MSigDB_Hallmark_GSEA	not_run_license_review_unconfirmed	not_run	No MSigDB resource accessed	NA	not_run_license_review_unconfirmed	NA	NA	NA	NA	NA	NA	NA

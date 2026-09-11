@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: If you use this workflow, cite both the GEO dataset and this analysis repository.
+title: Reproducible GSE42568 breast cancer expression analysis
+type: software
+version: 1.0.0
+date-released: 2026-09-11
+license: MIT
+authors:
+  - name: Ano-neko
+    website: https://github.com/Ano-neko
+preferred-citation:
+  type: dataset
+  title: GSE42568 Breast Cancer Gene Expression Analysis
+  year: 2013
+  url: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42568
+identifiers:
+  - type: url
+    value: https://pubmed.ncbi.nlm.nih.gov/23740839/

@@ -1,0 +1,14 @@
+test_id	passed	detail
+T01_contrast_cancer_minus_normal_positive	TRUE	Expected +2; observed 2.000000000000
+T02_contrast_null_control	TRUE	Expected 0; observed -0.000000000000
+T03_sample_groups_locked	TRUE	Expected 121 samples: 104 cancer and 17 normal
+T04_unpaired_design_guard	TRUE	Non-missing pairing identifiers: 0
+T05_one_to_many_not_primary	TRUE	Every one-to-many probe is excluded from primary annotation
+T06_x_at_not_primary	TRUE	Every _x_at probe is excluded from primary annotation
+T07_controls_not_primary	TRUE	Every AFFX control is excluded from primary annotation
+T08_one_representative_per_gene	TRUE	Selected 20357 representatives for 20357 Entrez genes
+T09_universes_subset_tested	TRUE	Every resource-universe member occurs in the complete P1 tested-gene table
+T10_gsea_rank_complete_unique	TRUE	GSEA rank contains every tested gene exactly once
+T11_gsea_rank_descending	TRUE	Moderated t is monotonically descending; exact ties use Entrez ID
+T12_kegg_license_gate	TRUE	KEGG was not run because commercial permission was not documented
+T13_msigdb_license_gate	TRUE	MSigDB Hallmark was not run because commercial-use review was unconfirmed

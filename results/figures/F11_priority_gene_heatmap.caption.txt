@@ -1,0 +1,1 @@
+Rows are selected from headline-eligible TREAT-priority genes without using the heatmap for inference. Values are row-wise z-scores capped at +/-2.5; source data preserve original log2 expression.

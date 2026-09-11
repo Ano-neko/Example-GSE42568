@@ -1,0 +1,16 @@
+metric	value
+matrix_sha256	43b93f72f1d81838dcd2a5b6ccc3bc1875e46230dad0d7346236773a99e32b76
+rows_probe_sets	54675
+columns_samples	121
+unique_probe_ids	54675
+unique_sample_ids	121
+nonfinite_values	0
+minimum	2.3128116420
+maximum	16.0469027300
+constant_probe_sets	96
+AFFX_control_probe_sets	62
+cancer_samples	104
+normal_samples	17
+platform	GPL570
+scale_assessment	consistent_with_log2_GCRMA
+gzip_integrity	passed

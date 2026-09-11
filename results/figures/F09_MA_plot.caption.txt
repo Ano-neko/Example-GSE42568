@@ -1,0 +1,1 @@
+P1 effects are adjusted for the processing-run proxy. TREAT priority directly tests whether the absolute effect exceeds log2(1.2).

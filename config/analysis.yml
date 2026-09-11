@@ -1,0 +1,67 @@
+project:
+  accession: GSE42568
+  platform: GPL570
+  title: Breast cancer versus normal breast tissue expression analysis
+  contrast: cancer-minus-normal
+  seed: 42568
+  timezone: UTC
+input:
+  matrix_file: data/raw/GSE42568_series_matrix.txt.gz
+  platform_annotation_file: data/raw/GPL570.annot.gz
+  expected_samples: 121
+  expected_cancer: 104
+  expected_normal: 17
+  expected_probes: 54675
+  expected_matrix_sha256: 43b93f72f1d81838dcd2a5b6ccc3bc1875e46230dad0d7346236773a99e32b76
+  matrix_url: https://ftp.ncbi.nlm.nih.gov/geo/series/GSE42nnn/GSE42568/matrix/GSE42568_series_matrix.txt.gz
+  platform_annotation_url: https://ftp.ncbi.nlm.nih.gov/geo/platforms/GPLnnn/GPL570/annot/GPL570.annot.gz
+design:
+  reference_group: normal
+  comparison_group: cancer
+  run_proxy_levels_expected: 13
+  manual_run_proxy:
+    GSM1045239: '2004-11-26'
+    GSM1045263: '2004-11-26'
+    GSM1045302: '2004-11-26'
+annotation:
+  keytype: PROBEID
+  stable_gene_id: ENTREZID
+  specificity_order:
+    at: 1
+    a_at: 2
+    s_at: 3
+  exclude_x_at: true
+  minimum_eligible_probe_fraction: 0.60
+  minimum_unique_entrez: 10000
+differential_expression:
+  method: limma
+  trend: true
+  robust: true
+  bh_fdr: 0.05
+  treat_fold_change: 1.2
+  treat_sensitivity_fold_changes: [1.1, 1.5]
+qc:
+  robust_z_warning: 3.0
+  pca_top_variable_genes: 5000
+  pca_sensitivity_genes: 1000
+  pca_max_components_for_distance: 10
+  pca_cumulative_variance_for_distance: 0.50
+  robust_pca_probability: 0.999
+enrichment:
+  ora_min_size: 10
+  ora_max_size: 500
+  gsea_min_size: 15
+  gsea_max_size: 500
+  gsea_score_exponent: 1
+  bh_fdr: 0.05
+stability:
+  green_spearman_min: 0.90
+  green_sign_concordance_min: 0.95
+  amber_spearman_min: 0.80
+  amber_sign_concordance_min: 0.80
+reporting:
+  heatmap_max_genes: 50
+  heatmap_each_direction: 25
+  volcano_labels_each_direction: 10
+  enrichment_terms_each_direction: 10
+  report_language: English

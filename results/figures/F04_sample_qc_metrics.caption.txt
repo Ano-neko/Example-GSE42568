@@ -1,0 +1,1 @@
+Dashed lines mark the pre-specified robust-z warning boundary. No single metric automatically excludes a sample.

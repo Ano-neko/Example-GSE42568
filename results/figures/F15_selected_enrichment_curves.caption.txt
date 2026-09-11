@@ -1,0 +1,1 @@
+Up to three BH-significant Reactome sets in each direction are selected by FDR, absolute NES, then stable pathway ID. Curves use all ranked P1-tested genes; leading edges are listed in the full GSEA table.

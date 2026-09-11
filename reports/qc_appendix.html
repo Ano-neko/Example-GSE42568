@@ -1,0 +1,509 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>GSE42568 QC Appendix</title>
+<style>
+@page { size:A4; margin:16mm 15mm 18mm;
+  @bottom-left { content:"GSE42568 reproducible analysis"; color:#64748b; font-size:8pt; }
+  @bottom-right { content:"Page " counter(page) " of " counter(pages); color:#64748b; font-size:8pt; }}
+@page:first { @bottom-left { content:none; } @bottom-right { content:none; }}
+html { font-family:"DejaVu Sans",Arial,sans-serif; color:#0f172a; font-size:10pt; line-height:1.46; }
+body { margin:0; }
+.cover { min-height:245mm; display:flex; flex-direction:column; justify-content:center; page-break-after:always; padding:0 7mm; }
+.eyebrow { color:#0e7490; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+.cover h1 { font-size:30pt; line-height:1.08; border:0; margin:7mm 0 5mm; }
+.subtitle { color:#475569; font-size:14pt; max-width:155mm; }
+.meta { border-top:2px solid #c2415d; color:#475569; margin-top:18mm; padding-top:5mm; }
+h1 { font-size:23pt; border-bottom:3px solid #c2415d; padding-bottom:3mm; margin:0 0 7mm; }
+h2 { font-size:16pt; margin:8mm 0 3mm; page-break-after:avoid; }
+h3 { color:#0e7490; font-size:12pt; margin:5mm 0 2mm; page-break-after:avoid; }
+p { margin:0 0 3.5mm; }
+ul,ol { margin:2mm 0 4mm 6mm; padding-left:4mm; }
+li { margin-bottom:1.2mm; }
+a { color:#0e7490; text-decoration:none; }
+blockquote { background:#ecfeff; border-left:4px solid #0e7490; color:#334155; margin:4mm 0; padding:4mm 5mm; }
+code { background:#eef2f7; border-radius:1mm; font-size:8.5pt; padding:.4mm 1mm; }
+pre { background:#0f172a; color:white; font-size:8pt; padding:4mm; white-space:pre-wrap; }
+table { border-collapse:collapse; font-size:8pt; margin:3mm 0 6mm; width:100%; }
+thead { display:table-header-group; } tr { page-break-inside:avoid; }
+th { background:#e2e8f0; text-align:left; } th,td { border-bottom:.4pt solid #cbd5e1; padding:2mm; vertical-align:top; }
+tbody tr:nth-child(even) { background:#f8fafc; }
+img { display:block; margin:4mm auto 2mm; max-height:225mm; max-width:100%; object-fit:contain; }
+p:has(> img) { page-break-inside:avoid; }
+</style></head><body><div class="cover"><div class="eyebrow">Scientific quality-control record</div><h1>GSE42568 QC Appendix</h1>
+<div class="subtitle">Input, metadata, processed-expression, annotation, design and sensitivity review</div><div class="meta"><b>Dataset:</b> GEO GSE42568 · GPL570<br>
+<b>Contrast:</b> cancer minus normal breast tissue<br><b>Release:</b> v1.0 · 11 September 2026<br>
+<b>Scientific status:</b> PASS WITH DOCUMENTED LIMITATIONS</div></div><main><div class="toc">
+<ul>
+<li><a href="#disposition">Disposition</a></li>
+<li><a href="#input-and-metadata">Input and metadata</a></li>
+<li><a href="#distribution-and-sample-review">Distribution and sample review</a></li>
+<li><a href="#pca-and-correlation">PCA and correlation</a></li>
+<li><a href="#annotation-and-statistical-qc">Annotation and statistical QC</a></li>
+<li><a href="#enrichment-and-licence-qa">Enrichment and licence QA</a></li>
+<li><a href="#acceptance-summary">Acceptance summary</a></li>
+</ul>
+</div>
+<h1 id="disposition">Disposition</h1>
+<p><strong>PASS WITH DOCUMENTED LIMITATIONS:</strong> 32/32 Scientific QA checks and 13/13 reproducibility guards pass; a clean rebuild reproduced 10/10 key tables byte-for-byte. All 121 samples enter P1. Four unusual samples remain after signed review and are removed only in an influence sensitivity.</p>
+<h1 id="input-and-metadata">Input and metadata</h1>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Observed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>matrix_sha256</td>
+<td>43b93f72f1d81838dcd2a5b6ccc3bc1875e46230dad0d7346236773a99e32b76</td>
+</tr>
+<tr>
+<td>rows_probe_sets</td>
+<td>54675</td>
+</tr>
+<tr>
+<td>columns_samples</td>
+<td>121</td>
+</tr>
+<tr>
+<td>unique_probe_ids</td>
+<td>54675</td>
+</tr>
+<tr>
+<td>unique_sample_ids</td>
+<td>121</td>
+</tr>
+<tr>
+<td>nonfinite_values</td>
+<td>0</td>
+</tr>
+<tr>
+<td>minimum</td>
+<td>2.3128116420</td>
+</tr>
+<tr>
+<td>maximum</td>
+<td>16.0469027300</td>
+</tr>
+<tr>
+<td>constant_probe_sets</td>
+<td>96</td>
+</tr>
+<tr>
+<td>AFFX_control_probe_sets</td>
+<td>62</td>
+</tr>
+<tr>
+<td>cancer_samples</td>
+<td>104</td>
+</tr>
+<tr>
+<td>normal_samples</td>
+<td>17</td>
+</tr>
+<tr>
+<td>platform</td>
+<td>GPL570</td>
+</tr>
+<tr>
+<td>scale_assessment</td>
+<td>consistent_with_log2_GCRMA</td>
+</tr>
+<tr>
+<td>gzip_integrity</td>
+<td>passed</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Feature flow" src="../results/figures/F01_analysis_feature_flow.png" /></p>
+<p>The manifest has 104 cancer and 17 normal GPL570 samples. Normal ages, source category and pairing IDs are absent. GEO's narrative says 20 cancers under 50 while parsed sample fields contain 27 under 50 and 77 at least 50; the discrepancy is preserved, not overwritten.</p>
+<p><img alt="Metadata and run structure" src="../results/figures/F02_metadata_and_run_structure.png" /></p>
+<h1 id="distribution-and-sample-review">Distribution and sample review</h1>
+<p><img alt="Expression distributions" src="../results/figures/F03_expression_distributions.png" /></p>
+<p><img alt="Sample QC metrics" src="../results/figures/F04_sample_qc_metrics.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Sample</th>
+<th>Group</th>
+<th>Run</th>
+<th>Signals</th>
+<th>Distribution</th>
+<th>Correlation</th>
+<th>PCA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GSM1045192</td>
+<td>normal</td>
+<td>2004-12-14</td>
+<td>2</td>
+<td>TRUE</td>
+<td>FALSE</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>GSM1045193</td>
+<td>normal</td>
+<td>2004-12-15</td>
+<td>3</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>GSM1045217</td>
+<td>cancer</td>
+<td>2004-12-09</td>
+<td>3</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+</tr>
+<tr>
+<td>GSM1045302</td>
+<td>cancer</td>
+<td>2004-11-26</td>
+<td>3</td>
+<td>TRUE</td>
+<td>TRUE</td>
+<td>TRUE</td>
+</tr>
+</tbody>
+</table>
+<p>The four profiles are unusual but finite and smooth, with plausible expression neighbours. No raw CEL metric corroborates technical failure. They are retained in P1 and jointly excluded only for influence assessment; formal S3 is not applicable.</p>
+<h1 id="pca-and-correlation">PCA and correlation</h1>
+<p><img alt="Primary PCA" src="../results/figures/F05_primary_PCA.png" /></p>
+<p><img alt="Visualization-only adjusted PCA" src="../results/figures/F06_visualization_only_adjusted_PCA.png" /></p>
+<p><img alt="Sample correlation" src="../results/figures/F07_sample_correlation_heatmap.png" /></p>
+<p>PC1/PC2 explain 20.3%/10.9% of top-5,000-MAD variation. PC1 tissue R² is 0.678; tissue partial R² given run is 0.540 and run partial R² given tissue is 0.134. Adjusted PCA never enters inference.</p>
+<h1 id="annotation-and-statistical-qc">Annotation and statistical QC</h1>
+<table>
+<thead>
+<tr>
+<th>Audit metric</th>
+<th>Count/value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mapping_status:primary_eligible</td>
+<td>39815</td>
+</tr>
+<tr>
+<td>mapping_status:unmapped</td>
+<td>9953</td>
+</tr>
+<tr>
+<td>mapping_status:one_to_many</td>
+<td>1524</td>
+</tr>
+<tr>
+<td>mapping_status:constant</td>
+<td>96</td>
+</tr>
+<tr>
+<td>mapping_status:cross_hybridizing_x_at</td>
+<td>3225</td>
+</tr>
+<tr>
+<td>mapping_status:control_affx</td>
+<td>62</td>
+</tr>
+<tr>
+<td>suffix_class:s_at</td>
+<td>11292</td>
+</tr>
+<tr>
+<td>suffix_class:at</td>
+<td>37394</td>
+</tr>
+<tr>
+<td>suffix_class:a_at</td>
+<td>1720</td>
+</tr>
+<tr>
+<td>suffix_class:x_at</td>
+<td>4207</td>
+</tr>
+<tr>
+<td>suffix_class:control</td>
+<td>62</td>
+</tr>
+<tr>
+<td>total_probe_sets</td>
+<td>54675</td>
+</tr>
+<tr>
+<td>noncontrol_nonconstant_denominator</td>
+<td>54517</td>
+</tr>
+<tr>
+<td>primary_eligible_probes</td>
+<td>39815</td>
+</tr>
+<tr>
+<td>primary_eligible_fraction</td>
+<td>0.730322651649944</td>
+</tr>
+<tr>
+<td>unique_testable_entrez</td>
+<td>20357</td>
+</tr>
+<tr>
+<td>genes_with_multiple_eligible_probes</td>
+<td>10281</td>
+</tr>
+</tbody>
+</table>
+<p>Eligibility is 73.03%, above the frozen 60% stop gate; 20,357 genes exceed the 10,000-gene gate. All 54,675 probes receive one exclusive status.</p>
+<p><img alt="Design stability" src="../results/figures/F08_design_stability.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>n</th>
+<th>Spearman</th>
+<th>Pearson</th>
+<th>Priority sign</th>
+<th>Median |effect| ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S1_group_only</td>
+<td>121</td>
+<td>0.936</td>
+<td>0.975</td>
+<td>100.0%</td>
+<td>1.069</td>
+</tr>
+<tr>
+<td>S2_mixed_runs</td>
+<td>62</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>100.0%</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>QC_candidate_exclusion</td>
+<td>117</td>
+<td>0.912</td>
+<td>0.975</td>
+<td>100.0%</td>
+<td>1.100</td>
+</tr>
+<tr>
+<td>S4_no_trend</td>
+<td>121</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>100.0%</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>S4_group_aware</td>
+<td>121</td>
+<td>0.962</td>
+<td>0.993</td>
+<td>100.0%</td>
+<td>1.006</td>
+</tr>
+<tr>
+<td>median_collapse</td>
+<td>121</td>
+<td>0.874</td>
+<td>0.902</td>
+<td>97.0%</td>
+<td>0.960</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Removed run</th>
+<th>Normal removed</th>
+<th>Cancer removed</th>
+<th>Spearman</th>
+<th>Priority sign</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2004-11-26</td>
+<td>0</td>
+<td>3</td>
+<td>1.000</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-03</td>
+<td>0</td>
+<td>8</td>
+<td>1.000</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-07</td>
+<td>0</td>
+<td>8</td>
+<td>1.000</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-08</td>
+<td>0</td>
+<td>8</td>
+<td>1.000</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-09</td>
+<td>0</td>
+<td>11</td>
+<td>1.000</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-10</td>
+<td>0</td>
+<td>10</td>
+<td>1.000</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-14</td>
+<td>3</td>
+<td>12</td>
+<td>0.924</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-15</td>
+<td>3</td>
+<td>10</td>
+<td>0.951</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-20</td>
+<td>0</td>
+<td>11</td>
+<td>1.000</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-21</td>
+<td>1</td>
+<td>10</td>
+<td>0.989</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2004-12-22</td>
+<td>1</td>
+<td>9</td>
+<td>0.988</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2005-01-25</td>
+<td>8</td>
+<td>3</td>
+<td>0.953</td>
+<td>100.0%</td>
+</tr>
+<tr>
+<td>2005-01-26</td>
+<td>1</td>
+<td>1</td>
+<td>0.996</td>
+<td>100.0%</td>
+</tr>
+</tbody>
+</table>
+<p>The normal-heavy 2005-01-25 removal retains Spearman 0.953 and every priority direction. Median collapse is the least concordant major technical layer (rho 0.874; 97.0% priority direction), and its disagreements are filtered from headline claims rather than hidden.</p>
+<h1 id="enrichment-and-licence-qa">Enrichment and licence QA</h1>
+<p>GO BP universe is 15,588; Reactome universe 10,178. GSEA has all 20,357 moderated-t values exactly once and zero exact ties. KEGG and MSigDB Hallmark have explicit expected gate rows; Reactome is the completed fallback.</p>
+<h1 id="acceptance-summary">Acceptance summary</h1>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Checks</th>
+<th>Passed</th>
+<th>Statuses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DE</td>
+<td>4</td>
+<td>4</td>
+<td>PASS, PASS, PASS, PASS</td>
+</tr>
+<tr>
+<td>annotation</td>
+<td>4</td>
+<td>4</td>
+<td>PASS, PASS, PASS, PASS</td>
+</tr>
+<tr>
+<td>artifacts</td>
+<td>1</td>
+<td>1</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>design</td>
+<td>3</td>
+<td>3</td>
+<td>PASS, PASS, PASS</td>
+</tr>
+<tr>
+<td>enrichment</td>
+<td>4</td>
+<td>4</td>
+<td>PASS, PASS, PASS, PASS</td>
+</tr>
+<tr>
+<td>input</td>
+<td>2</td>
+<td>2</td>
+<td>PASS, PASS</td>
+</tr>
+<tr>
+<td>licensing</td>
+<td>2</td>
+<td>2</td>
+<td>EXPECTED_LICENSE_GATE, EXPECTED_LICENSE_GATE</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>5</td>
+<td>5</td>
+<td>PASS, PASS, PASS, PASS, PASS</td>
+</tr>
+<tr>
+<td>sample_QC</td>
+<td>2</td>
+<td>2</td>
+<td>PASS, NOT_APPLICABLE_CONFIRMED_FAILURE_EXCLUSION</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>1</td>
+<td>1</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>sensitivity</td>
+<td>4</td>
+<td>4</td>
+<td>PASS, PASS, PASS, PASS</td>
+</tr>
+</tbody>
+</table>
+<p>The full row-level ledger is <code>results/tables/acceptance_checks.tsv</code>. Residual limitations are normal provenance/age, unpaired bulk tissue, partial run confounding, cancer heterogeneity, processed-only QC and no external validation.</p></main></body></html>

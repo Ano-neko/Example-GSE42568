@@ -1,0 +1,40 @@
+# Public portfolio edition omits downloaded, metadata and derived data.
+# The supplied downloader and pipeline recreate the required directories.
+data/
+
+# Full GO ORA TSV is retained in the local delivery but exceeds GitHub's
+# 100 MB per-file limit. The byte-equivalent decompressed .tsv.gz is versioned.
+results/tables/go_ora_all_terms.tsv
+
+# Regenerable, high-volume figure source tables are retained in the complete
+# local analysis workspace but omitted from the public portfolio edition.
+results/tables/figure_*_source.tsv
+
+# Full-workspace inventories refer to intentionally omitted local artifacts.
+# The public edition has its own acceptance ledger instead.
+machine_readable_manifest.json
+results/tables/artifact_checksums.tsv
+results/checksums/
+
+# Runtime state
+tmp/*
+!tmp/pdfs/
+tmp/pdfs/*
+results/logs/
+_targets/
+__pycache__/
+*.pyc
+.Rhistory
+.RData
+Rplots.pdf
+.Rproj.user/
+renv/library/
+renv/staging/
+
+# Generated report support directories
+reports/*_files/
+
+# OS/editor files
+.DS_Store
+*.swp
+*.swo

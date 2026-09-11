@@ -1,0 +1,595 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>GSE42568 Breast Cancer Expression Analysis</title>
+<style>
+@page { size:A4; margin:16mm 15mm 18mm;
+  @bottom-left { content:"GSE42568 reproducible analysis"; color:#64748b; font-size:8pt; }
+  @bottom-right { content:"Page " counter(page) " of " counter(pages); color:#64748b; font-size:8pt; }}
+@page:first { @bottom-left { content:none; } @bottom-right { content:none; }}
+html { font-family:"DejaVu Sans",Arial,sans-serif; color:#0f172a; font-size:10pt; line-height:1.46; }
+body { margin:0; }
+.cover { min-height:245mm; display:flex; flex-direction:column; justify-content:center; page-break-after:always; padding:0 7mm; }
+.eyebrow { color:#0e7490; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+.cover h1 { font-size:30pt; line-height:1.08; border:0; margin:7mm 0 5mm; }
+.subtitle { color:#475569; font-size:14pt; max-width:155mm; }
+.meta { border-top:2px solid #c2415d; color:#475569; margin-top:18mm; padding-top:5mm; }
+h1 { font-size:23pt; border-bottom:3px solid #c2415d; padding-bottom:3mm; margin:0 0 7mm; }
+h2 { font-size:16pt; margin:8mm 0 3mm; page-break-after:avoid; }
+h3 { color:#0e7490; font-size:12pt; margin:5mm 0 2mm; page-break-after:avoid; }
+p { margin:0 0 3.5mm; }
+ul,ol { margin:2mm 0 4mm 6mm; padding-left:4mm; }
+li { margin-bottom:1.2mm; }
+a { color:#0e7490; text-decoration:none; }
+blockquote { background:#ecfeff; border-left:4px solid #0e7490; color:#334155; margin:4mm 0; padding:4mm 5mm; }
+code { background:#eef2f7; border-radius:1mm; font-size:8.5pt; padding:.4mm 1mm; }
+pre { background:#0f172a; color:white; font-size:8pt; padding:4mm; white-space:pre-wrap; }
+table { border-collapse:collapse; font-size:8pt; margin:3mm 0 6mm; width:100%; }
+thead { display:table-header-group; } tr { page-break-inside:avoid; }
+th { background:#e2e8f0; text-align:left; } th,td { border-bottom:.4pt solid #cbd5e1; padding:2mm; vertical-align:top; }
+tbody tr:nth-child(even) { background:#f8fafc; }
+img { display:block; margin:4mm auto 2mm; max-height:225mm; max-width:100%; object-fit:contain; }
+p:has(> img) { page-break-inside:avoid; }
+</style></head><body><div class="cover"><div class="eyebrow">Client-style scientific report</div><h1>GSE42568 Breast Cancer Expression Analysis</h1>
+<div class="subtitle">Run-adjusted differential expression, sensitivity analysis and licensed functional enrichment</div><div class="meta"><b>Dataset:</b> GEO GSE42568 · GPL570<br>
+<b>Contrast:</b> cancer minus normal breast tissue<br><b>Release:</b> v1.0 · 11 September 2026<br>
+<b>Scientific status:</b> PASS WITH DOCUMENTED LIMITATIONS</div></div><main><div class="toc">
+<ul>
+<li><a href="#executive-summary">Executive summary</a></li>
+<li><a href="#data-and-boundary">Data and boundary</a></li>
+<li><a href="#qc-and-design">QC and design</a></li>
+<li><a href="#differential-expression">Differential expression</a></li>
+<li><a href="#functional-enrichment">Functional enrichment</a></li>
+<li><a href="#licence-decisions">Licence decisions</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#deliverables-and-references">Deliverables and references</a></li>
+</ul>
+</div>
+<h1 id="executive-summary">Executive summary</h1>
+<p>This analysis compares <strong>104 breast cancer biopsies with 17 normal breast tissue samples</strong> in GEO GSE42568. It uses the deposited log2 GCRMA matrix and a run-adjusted limma model. The target is an average <strong>cancer-minus-normal bulk-tissue expression association</strong>—not a causal effect, clinical classifier, prognosis model, or treatment-response model.</p>
+<p>The workflow passed <strong>32/32 Scientific QA checks</strong> and 13/13 reproducibility guards. A clean rebuild from the checksum-locked official inputs reproduced <strong>10/10 key result tables byte-for-byte</strong>. Of <strong>20,357 unique Entrez genes</strong>, <strong>5,381</strong> reached moderated BH FDR &lt; 0.05; <strong>2,835</strong> met TREAT BH FDR &lt; 0.05 while directly testing an absolute effect greater than 1.2-fold (1,497 cancer-up; 1,338 normal-up). <strong>2,745</strong> also passed probe and sensitivity interpretation checks.</p>
+<blockquote>
+<p><strong>Release decision:</strong> suitable as an auditable portfolio/client-style discovery analysis with explicit limitations. It is not a diagnostic product or evidence that a pathway is activated, causal, or druggable.</p>
+</blockquote>
+<h1 id="data-and-boundary">Data and boundary</h1>
+<p>The official <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42568">GEO record</a> reports 104 pretreatment breast cancer biopsies and 17 normal breast tissues on GPL570 and cites Clarke et al. (<a href="https://pubmed.ncbi.nlm.nih.gov/23740839/">PMID 23740839</a>). Normal-tissue donor/source status is not established, so this report never calls them healthy, adjacent, reduction-mammoplasty, or matched controls.</p>
+<ul>
+<li>Matrix SHA-256: <code>43b93f72f1d81838dcd2a5b6ccc3bc1875e46230dad0d7346236773a99e32b76</code>.</li>
+<li>54,675 probe sets × 121 samples; finite deposited log2 GCRMA signals.</li>
+<li>No second log, re-normalization, imputation or ComBat was applied to the DE response.</li>
+<li>P1: <code>expression ~ processing_run_proxy + tissue_group</code>; normal reference.</li>
+<li>Thirteen run-proxy levels; six mixed levels containing 62 samples.</li>
+</ul>
+<p><img alt="Feature flow" src="../results/figures/F01_analysis_feature_flow.png" /></p>
+<h1 id="qc-and-design">QC and design</h1>
+<p>Annotation retained 39,815 eligible probes and resolved 20,357 unique Entrez genes by an outcome-blind representative rule. Four samples triggered multi-category processed-data warnings. They show no gross matrix failure and have no raw-array corroboration, so all remain in P1; a separate 117-sample sensitivity measures influence.</p>
+<p><img alt="Primary PCA" src="../results/figures/F05_primary_PCA.png" /></p>
+<p>The design is full rank (14/14; residual df 107). Cancer-only run levels do not provide within-run group contrast once their fixed effects are included, explaining why P1 and the 62-sample mixed-run S2 estimates are identical.</p>
+<p><img alt="Design stability" src="../results/figures/F08_design_stability.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>n</th>
+<th>Spearman</th>
+<th>Pearson</th>
+<th>Priority sign</th>
+<th>Median |effect| ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S1_group_only</td>
+<td>121</td>
+<td>0.936</td>
+<td>0.975</td>
+<td>100.0%</td>
+<td>1.069</td>
+</tr>
+<tr>
+<td>S2_mixed_runs</td>
+<td>62</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>100.0%</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>QC_candidate_exclusion</td>
+<td>117</td>
+<td>0.912</td>
+<td>0.975</td>
+<td>100.0%</td>
+<td>1.100</td>
+</tr>
+<tr>
+<td>S4_no_trend</td>
+<td>121</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>100.0%</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>S4_group_aware</td>
+<td>121</td>
+<td>0.962</td>
+<td>0.993</td>
+<td>100.0%</td>
+<td>1.006</td>
+</tr>
+<tr>
+<td>median_collapse</td>
+<td>121</td>
+<td>0.874</td>
+<td>0.902</td>
+<td>97.0%</td>
+<td>0.960</td>
+</tr>
+</tbody>
+</table>
+<p>The design traffic light is <strong>Green</strong>. Removing the normal-heavy 2005-01-25 run retains Spearman 0.953 and every P1-priority direction. Excluding the four reviewed candidates retains every priority direction (Spearman 0.912).</p>
+<h1 id="differential-expression">Differential expression</h1>
+<p>Positive log2FC means higher expression in cancer. The following genes are the fixed ten-smallest-TREAT-FDR set per direction, with stable tie-breaks; familiarity did not affect selection.</p>
+<table>
+<thead>
+<tr>
+<th>Gene</th>
+<th>Entrez</th>
+<th>log2FC</th>
+<th>Cancer/normal FC</th>
+<th>95% CI</th>
+<th>TREAT FDR</th>
+<th>Probe</th>
+<th>Probe concordance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DSP</td>
+<td>1832</td>
+<td>5.25</td>
+<td>38.03</td>
+<td>4.37 to 6.13</td>
+<td>2.20e-17</td>
+<td>200606_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>ESRP1</td>
+<td>54845</td>
+<td>4.99</td>
+<td>31.83</td>
+<td>4.10 to 5.88</td>
+<td>5.60e-16</td>
+<td>225846_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>SPINT2</td>
+<td>10653</td>
+<td>4.15</td>
+<td>17.71</td>
+<td>3.41 to 4.88</td>
+<td>6.91e-16</td>
+<td>210715_s_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>FAM83H</td>
+<td>286077</td>
+<td>4.02</td>
+<td>16.25</td>
+<td>3.28 to 4.76</td>
+<td>4.62e-15</td>
+<td>226129_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>PRKCZ</td>
+<td>5590</td>
+<td>2.58</td>
+<td>5.99</td>
+<td>2.11 to 3.06</td>
+<td>3.78e-14</td>
+<td>202178_at</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>TFAP2A</td>
+<td>7020</td>
+<td>4.92</td>
+<td>30.38</td>
+<td>3.93 to 5.92</td>
+<td>2.02e-13</td>
+<td>204653_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>LRRC1</td>
+<td>55227</td>
+<td>2.99</td>
+<td>7.97</td>
+<td>2.41 to 3.58</td>
+<td>2.46e-13</td>
+<td>218816_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>SDC1</td>
+<td>6382</td>
+<td>4.45</td>
+<td>21.82</td>
+<td>3.54 to 5.35</td>
+<td>3.41e-13</td>
+<td>201286_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>EPCAM</td>
+<td>4072</td>
+<td>5.25</td>
+<td>37.99</td>
+<td>4.17 to 6.33</td>
+<td>3.45e-13</td>
+<td>201839_s_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>INHBA</td>
+<td>3624</td>
+<td>4.12</td>
+<td>17.34</td>
+<td>3.28 to 4.95</td>
+<td>3.78e-13</td>
+<td>227140_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>LINC01697</td>
+<td>284825</td>
+<td>-3.68</td>
+<td>0.08</td>
+<td>-4.15 to -3.22</td>
+<td>2.06e-23</td>
+<td>237351_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>LYVE1</td>
+<td>10894</td>
+<td>-4.05</td>
+<td>0.06</td>
+<td>-4.60 to -3.50</td>
+<td>1.20e-21</td>
+<td>219059_s_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>CIDEA</td>
+<td>1149</td>
+<td>-3.71</td>
+<td>0.08</td>
+<td>-4.22 to -3.20</td>
+<td>1.97e-21</td>
+<td>221295_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>STX11</td>
+<td>8676</td>
+<td>-3.41</td>
+<td>0.09</td>
+<td>-3.87 to -2.94</td>
+<td>1.97e-21</td>
+<td>235670_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>ACSM5</td>
+<td>54988</td>
+<td>-3.56</td>
+<td>0.08</td>
+<td>-4.05 to -3.07</td>
+<td>2.42e-21</td>
+<td>220061_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>KCNIP2</td>
+<td>30819</td>
+<td>-3.86</td>
+<td>0.07</td>
+<td>-4.41 to -3.30</td>
+<td>3.42e-20</td>
+<td>223727_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>LVRN</td>
+<td>206338</td>
+<td>-3.77</td>
+<td>0.07</td>
+<td>-4.31 to -3.22</td>
+<td>3.42e-20</td>
+<td>235382_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>TMEM132C</td>
+<td>92293</td>
+<td>-3.32</td>
+<td>0.10</td>
+<td>-3.80 to -2.84</td>
+<td>3.42e-20</td>
+<td>232313_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>GPD1</td>
+<td>2819</td>
+<td>-4.82</td>
+<td>0.04</td>
+<td>-5.54 to -4.11</td>
+<td>5.86e-20</td>
+<td>204997_at</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>ADH1C</td>
+<td>126</td>
+<td>-4.09</td>
+<td>0.06</td>
+<td>-4.69 to -3.48</td>
+<td>6.18e-20</td>
+<td>206262_at</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Volcano plot" src="../results/figures/F10_volcano_plot.png" /></p>
+<p><img alt="Priority heatmap" src="../results/figures/F11_priority_gene_heatmap.png" /></p>
+<p>Strong cancer-up signals include epithelial/adhesion-associated <strong>DSP, EPCAM, ESRP1, SPINT2, and TFAP2A</strong>. Prominent normal-up signals include <strong>LYVE1, CIDEA, ACSM5, GPD1, ADH1C, and ACADL</strong>. These are cohort-level bulk-tissue patterns and cannot distinguish tumor-cell regulation from tissue-composition shifts.</p>
+<h1 id="functional-enrichment">Functional enrichment</h1>
+<p>GO ORA uses direction-specific priority genes and resource-specific tested-and-annotated backgrounds (GO BP: 15,588 genes). Reactome uses 10,178 tested genes with human Reactome annotation. GSEA begins with all 20,357 P1 moderated-t statistics.</p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>GO BP term</th>
+<th>ID</th>
+<th>Hits</th>
+<th>Set size</th>
+<th>BH FDR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cancer_up</td>
+<td>chromosome segregation</td>
+<td>GO:0007059</td>
+<td>71</td>
+<td>416</td>
+<td>4.29e-05</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>nuclear chromosome segregation</td>
+<td>GO:0098813</td>
+<td>58</td>
+<td>310</td>
+<td>4.29e-05</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>sister chromatid segregation</td>
+<td>GO:0000819</td>
+<td>47</td>
+<td>226</td>
+<td>4.29e-05</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>mitotic sister chromatid segregation</td>
+<td>GO:0000070</td>
+<td>41</td>
+<td>186</td>
+<td>4.29e-05</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>positive regulation of cell cycle process</td>
+<td>GO:0090068</td>
+<td>48</td>
+<td>251</td>
+<td>2.03e-04</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>positive regulation of cell cycle</td>
+<td>GO:0045787</td>
+<td>56</td>
+<td>319</td>
+<td>3.27e-04</td>
+</tr>
+<tr>
+<td>normal_up</td>
+<td>generation of precursor metabolites and energy</td>
+<td>GO:0006091</td>
+<td>85</td>
+<td>455</td>
+<td>5.51e-12</td>
+</tr>
+<tr>
+<td>normal_up</td>
+<td>fatty acid metabolic process</td>
+<td>GO:0006631</td>
+<td>76</td>
+<td>378</td>
+<td>5.51e-12</td>
+</tr>
+<tr>
+<td>normal_up</td>
+<td>energy derivation by oxidation of organic compounds</td>
+<td>GO:0015980</td>
+<td>74</td>
+<td>397</td>
+<td>1.78e-10</td>
+</tr>
+<tr>
+<td>normal_up</td>
+<td>organic acid catabolic process</td>
+<td>GO:0016054</td>
+<td>53</td>
+<td>233</td>
+<td>1.78e-10</td>
+</tr>
+<tr>
+<td>normal_up</td>
+<td>carboxylic acid catabolic process</td>
+<td>GO:0046395</td>
+<td>53</td>
+<td>233</td>
+<td>1.78e-10</td>
+</tr>
+<tr>
+<td>normal_up</td>
+<td>lipid catabolic process</td>
+<td>GO:0016042</td>
+<td>64</td>
+<td>323</td>
+<td>3.98e-10</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="GO BP ORA" src="../results/figures/F13_GO_BP_ORA_dotplot.png" /></p>
+<p>Cancer-up ranks emphasize chromosome segregation, cell-cycle, chromatin and DNA-repair programs. Normal-up ranks emphasize fatty-acid metabolism, aerobic respiration and GPCR-related programs.</p>
+<table>
+<thead>
+<tr>
+<th>Direction</th>
+<th>Reactome set</th>
+<th>ID</th>
+<th>NES</th>
+<th>Set size</th>
+<th>BH FDR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cancer_up</td>
+<td>DNA Repair</td>
+<td>R-HSA-73894</td>
+<td>2.17</td>
+<td>305</td>
+<td>1.14e-10</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>Cell Cycle Checkpoints</td>
+<td>R-HSA-69620</td>
+<td>2.17</td>
+<td>270</td>
+<td>1.79e-10</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>Chromatin organization</td>
+<td>R-HSA-4839726</td>
+<td>2.06</td>
+<td>253</td>
+<td>4.58e-08</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>Chromatin modifying enzymes</td>
+<td>R-HSA-3247509</td>
+<td>2.08</td>
+<td>238</td>
+<td>8.37e-08</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>Chromosome Maintenance</td>
+<td>R-HSA-73886</td>
+<td>2.31</td>
+<td>117</td>
+<td>8.40e-08</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>M Phase</td>
+<td>R-HSA-68886</td>
+<td>1.91</td>
+<td>359</td>
+<td>1.04e-07</td>
+</tr>
+<tr>
+<td>normal_up</td>
+<td>Aerobic respiration and respiratory electron transport</td>
+<td>R-HSA-1428517</td>
+<td>-2.03</td>
+<td>240</td>
+<td>1.25e-07</td>
+</tr>
+<tr>
+<td>normal_up</td>
+<td>GPCR ligand binding</td>
+<td>R-HSA-500792</td>
+<td>-1.81</td>
+<td>419</td>
+<td>2.65e-07</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>mRNA 3'-end processing</td>
+<td>R-HSA-72187</td>
+<td>2.15</td>
+<td>145</td>
+<td>3.20e-07</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>Processing of Capped Intron-Containing Pre-mRNA</td>
+<td>R-HSA-72203</td>
+<td>1.91</td>
+<td>282</td>
+<td>6.07e-07</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>SUMO E3 ligases SUMOylate target proteins</td>
+<td>R-HSA-3108232</td>
+<td>2.07</td>
+<td>175</td>
+<td>1.01e-06</td>
+</tr>
+<tr>
+<td>cancer_up</td>
+<td>Dengue Virus-Host Interactions</td>
+<td>R-HSA-9918481</td>
+<td>1.91</td>
+<td>257</td>
+<td>1.57e-06</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Reactome GSEA" src="../results/figures/F14_Reactome_GSEA_NES.png" /></p>
+<p><img alt="Selected GSEA curves" src="../results/figures/F15_selected_enrichment_curves.png" /></p>
+<p>Enrichment identifies concentration in the statistical ranking; it does not prove activation, causation or therapeutic vulnerability. Related GO terms overlap and are not independent findings.</p>
+<h1 id="licence-decisions">Licence decisions</h1>
+<ul>
+<li>GO and Reactome completed with pinned sources and attribution; <a href="https://reactome.org/license">Reactome data licence</a>.</li>
+<li>KEGG: <code>KEGG_NOT_RUN_LICENSE_GATE</code>; no API, definition, cache or map used.</li>
+<li>MSigDB Hallmark: not downloaded or redistributed because commercial-use review was unconfirmed.</li>
+<li>Reactome is explicitly the licensed GSEA fallback.</li>
+</ul>
+<h1 id="limitations">Limitations</h1>
+<ol>
+<li>Normal-tissue provenance, age and pairing identifiers are absent.</li>
+<li>This is an unpaired, observational, cross-sectional bulk-tissue analysis; composition can drive signals.</li>
+<li>Run is partially confounded with group even though the coefficient is estimable and sensitivities are Green.</li>
+<li>Processed data cannot provide CEL-level NUSE/RLE, degradation, image-artifact or alternative-preprocessing checks.</li>
+<li>Cancers span histology, grade and ER status; v1 intentionally estimates a broad average.</li>
+<li>No external validation cohort was added to this bounded delivery.</li>
+</ol>
+<h1 id="deliverables-and-references">Deliverables and references</h1>
+<p>Complete local-workspace results are in <code>results/tables/</code>; F01–F15 each have PDF, PNG, SVG, caption and source TSV. The public portfolio edition intentionally omits large/generated source artifacts and has its own acceptance record in <code>docs/PUBLIC_PORTFOLIO_ACCEPTANCE.md</code>.</p>
+<p>References: <a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE42568">GEO GSE42568</a>; Clarke et al., <em>Carcinogenesis</em> 2013 (<a href="https://doi.org/10.1093/carcin/bgt208">doi:10.1093/carcin/bgt208</a>); Ritchie et al., limma (<a href="https://doi.org/10.1093/nar/gkv007">doi:10.1093/nar/gkv007</a>); Subramanian et al., GSEA (<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC1239896/">PMC1239896</a>); <a href="https://geneontology.org/docs/go-citation-policy/">GO citation policy</a>; <a href="https://reactome.org/license">Reactome licence</a>.</p></main></body></html>

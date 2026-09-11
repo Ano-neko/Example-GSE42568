@@ -1,0 +1,8 @@
+check_id	domain	description	status	passed	evidence
+PKG001	scientific_lineage	Full analysis QA passed before public-edition filtering	PASS	TRUE	32/32 full-workspace checks passed
+PKG002	scope	QA031 is explicitly scoped to the complete analysis workspace	PASS	TRUE	Complete analysis workspace contains all F01-F15 PDF/PNG/caption and source-data files
+PKG003	required_artifacts	Required public code, reports and compact results exist	PASS	TRUE	No required files missing
+PKG004	omission_policy	Intentional public-edition omissions are declared	PASS	TRUE	All omission rules present
+PKG005	portability	Public-edition text files contain no server-specific project or environment path	PASS	TRUE	No machine-specific path found
+PKG006	environment	Pinned Conda records are the sole environment lock	PASS	TRUE	renv.lock absent; Conda source of truth documented
+PKG007	figures	Public edition includes PNG, PDF and caption for all 16 released figures	PASS	TRUE	48/48 expected public figure files present and nonempty

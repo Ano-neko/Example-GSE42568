@@ -1,0 +1,1 @@
+Deposited log2 GC-RMA values are displayed without re-normalization. Group-wide shifts are not treated as automatic technical failure.

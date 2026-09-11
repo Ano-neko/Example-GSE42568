@@ -1,0 +1,1 @@
+Each panel compares cancer-minus-normal effects with the locked P1 model. Sign concordance is evaluated on P1 TREAT-priority genes; S2 significance retention is not required.

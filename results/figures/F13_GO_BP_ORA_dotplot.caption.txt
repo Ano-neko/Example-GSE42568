@@ -1,0 +1,1 @@
+The universe is P1-tested Entrez genes annotated to GO BP. Point size is the hit count; ratios use the ontology-mapped priority denominator. Similar GO terms are not independent; the full unpruned table is delivered.

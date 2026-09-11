@@ -1,0 +1,17 @@
+metric	value
+priority_cancer_up	1497
+priority_normal_up	1338
+go_bp_universe	15588
+go_cc_universe	16428
+go_mf_universe	16139
+reactome_universe	10178
+reactome_eligible_ora_sets	1658
+reactome_eligible_gsea_sets	1367
+gsea_rank_genes	20357
+gsea_tie_member_fraction	0
+gsea_duplicate_statistic_fraction	0
+go_bp_significant_rows	515
+reactome_ora_significant_rows	29
+reactome_gsea_significant_rows	274
+kegg_status	not_run_license_gate
+msigdb_hallmark_status	not_run_license_review_unconfirmed

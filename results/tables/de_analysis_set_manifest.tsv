@@ -1,0 +1,11 @@
+analysis_id	status	samples	model_or_scope	inferential_role
+P1	completed	121	run proxy + tissue group; trend+robust	primary
+S1	completed	121	tissue group only; trend+robust	sensitivity
+S2	completed	62	six mixed runs; run proxy + tissue group; trend+robust	sensitivity
+S3	not_applicable	NA	no signed technical failures	sensitivity
+SQC	completed	117	exclude four reviewed QC candidates; influence only	sensitivity
+S4a	completed	121	P1 with trend=FALSE; robust=TRUE	sensitivity
+S4b	completed	121	P1 with group-specific vooma weights; robust=TRUE	sensitivity
+MDC	completed	121	median collapse; P1 model	sensitivity
+PROBE	completed	121	eligible unique-Entrez probes; P1 model	technical supplement
+LORO	completed	NA	remove each run and refit P1	influence diagnostic

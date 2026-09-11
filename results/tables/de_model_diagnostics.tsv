@@ -1,0 +1,16 @@
+metric	value
+tested_genes	20357
+primary_samples	121
+normal_samples	17
+cancer_samples	104
+primary_design_columns	14
+primary_design_rank	14
+primary_residual_df	107
+mixed_runs	6
+mixed_run_samples	62
+priority_genes	2835
+statistically_discovered_genes	5381
+headline_eligible_genes	2745
+group_aware_weight_min	1.32683067700425
+group_aware_weight_max	524.901084542264
+final_design_traffic_light	Green

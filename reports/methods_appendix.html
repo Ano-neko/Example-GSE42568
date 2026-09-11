@@ -1,0 +1,317 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>GSE42568 Methods Appendix</title>
+<style>
+@page { size:A4; margin:16mm 15mm 18mm;
+  @bottom-left { content:"GSE42568 reproducible analysis"; color:#64748b; font-size:8pt; }
+  @bottom-right { content:"Page " counter(page) " of " counter(pages); color:#64748b; font-size:8pt; }}
+@page:first { @bottom-left { content:none; } @bottom-right { content:none; }}
+html { font-family:"DejaVu Sans",Arial,sans-serif; color:#0f172a; font-size:10pt; line-height:1.46; }
+body { margin:0; }
+.cover { min-height:245mm; display:flex; flex-direction:column; justify-content:center; page-break-after:always; padding:0 7mm; }
+.eyebrow { color:#0e7490; font-weight:700; letter-spacing:.16em; text-transform:uppercase; }
+.cover h1 { font-size:30pt; line-height:1.08; border:0; margin:7mm 0 5mm; }
+.subtitle { color:#475569; font-size:14pt; max-width:155mm; }
+.meta { border-top:2px solid #c2415d; color:#475569; margin-top:18mm; padding-top:5mm; }
+h1 { font-size:23pt; border-bottom:3px solid #c2415d; padding-bottom:3mm; margin:0 0 7mm; }
+h2 { font-size:16pt; margin:8mm 0 3mm; page-break-after:avoid; }
+h3 { color:#0e7490; font-size:12pt; margin:5mm 0 2mm; page-break-after:avoid; }
+p { margin:0 0 3.5mm; }
+ul,ol { margin:2mm 0 4mm 6mm; padding-left:4mm; }
+li { margin-bottom:1.2mm; }
+a { color:#0e7490; text-decoration:none; }
+blockquote { background:#ecfeff; border-left:4px solid #0e7490; color:#334155; margin:4mm 0; padding:4mm 5mm; }
+code { background:#eef2f7; border-radius:1mm; font-size:8.5pt; padding:.4mm 1mm; }
+pre { background:#0f172a; color:white; font-size:8pt; padding:4mm; white-space:pre-wrap; }
+table { border-collapse:collapse; font-size:8pt; margin:3mm 0 6mm; width:100%; }
+thead { display:table-header-group; } tr { page-break-inside:avoid; }
+th { background:#e2e8f0; text-align:left; } th,td { border-bottom:.4pt solid #cbd5e1; padding:2mm; vertical-align:top; }
+tbody tr:nth-child(even) { background:#f8fafc; }
+img { display:block; margin:4mm auto 2mm; max-height:225mm; max-width:100%; object-fit:contain; }
+p:has(> img) { page-break-inside:avoid; }
+</style></head><body><div class="cover"><div class="eyebrow">Technical specification and methods</div><h1>GSE42568 Methods Appendix</h1>
+<div class="subtitle">Frozen parameters, statistical models, gene universes and reproducibility controls</div><div class="meta"><b>Dataset:</b> GEO GSE42568 · GPL570<br>
+<b>Contrast:</b> cancer minus normal breast tissue<br><b>Release:</b> v1.0 · 11 September 2026<br>
+<b>Scientific status:</b> PASS WITH DOCUMENTED LIMITATIONS</div></div><main><div class="toc">
+<ul>
+<li><a href="#scope-and-inputs">Scope and inputs</a></li>
+<li><a href="#metadata-and-design">Metadata and design</a></li>
+<li><a href="#processed-data-qc">Processed-data QC</a></li>
+<li><a href="#annotation">Annotation</a></li>
+<li><a href="#de-and-sensitivity">DE and sensitivity</a></li>
+<li><a href="#visualization">Visualization</a></li>
+<li><a href="#enrichment-and-licensing">Enrichment and licensing</a></li>
+<li><a href="#runtime-and-reproducibility">Runtime and reproducibility</a></li>
+</ul>
+</div>
+<h1 id="scope-and-inputs">Scope and inputs</h1>
+<p>The formal contract is <code>GSE42568_PROJECT_DESIGN.md</code>: one cancer-minus-normal contrast with no WGCNA, survival, classifier, immune-infiltration or drug-prediction expansion. <code>scripts/download_inputs.sh</code> downloads the official matrix and GPL570 annotation snapshot. The matrix must match the frozen byte size, gzip test and SHA-256 before parsing.</p>
+<p>The accepted matrix has 54,675 probe sets, 121 samples, range 2.3128–16.0469 and zero non-finite values. GEO identifies it as log2 GCRMA; no second log or normalization is performed.</p>
+<h1 id="metadata-and-design">Metadata and design</h1>
+<p>The series-matrix header supplies original and normalized metadata in <code>sample_manifest.tsv</code>. With no pairing ID and no normal-sample ages, the design is unpaired and does not adjust age. Cancer-only clinical covariates cannot be included in a joint cancer-normal model.</p>
+<p>For gene <em>g</em>, <code>E[y_gi] = beta_0g + processing_run_proxy_i + beta_group,g I(cancer_i)</code>. Normal is reference. The 121 × 14 design is rank 14, with 107 residual df, 13 run levels, six mixed levels and 62 mixed-run samples. <code>beta_group,g</code> is cancer-minus-normal log2FC.</p>
+<h1 id="processed-data-qc">Processed-data QC</h1>
+<p>QC includes sample median/IQR/MAD/quantiles/range, Pearson and Spearman connectivity, primary PCA and robust PCA distance. Warnings use robust |z| &gt;3. PCA uses top 5,000 pooled-MAD genes, centered but not scaled; top 1,000 and all-gene versions are sensitivity outputs. Robust distance uses up to 10 PCs reaching ≥50% variance and a 0.999 contour. A sample reaches review only with at least two independent warning categories; no automated exclusion is allowed.</p>
+<h1 id="annotation">Annotation</h1>
+<table>
+<thead>
+<tr>
+<th>Audit metric</th>
+<th>Count/value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mapping_status:primary_eligible</td>
+<td>39815</td>
+</tr>
+<tr>
+<td>mapping_status:unmapped</td>
+<td>9953</td>
+</tr>
+<tr>
+<td>mapping_status:one_to_many</td>
+<td>1524</td>
+</tr>
+<tr>
+<td>mapping_status:constant</td>
+<td>96</td>
+</tr>
+<tr>
+<td>mapping_status:cross_hybridizing_x_at</td>
+<td>3225</td>
+</tr>
+<tr>
+<td>mapping_status:control_affx</td>
+<td>62</td>
+</tr>
+<tr>
+<td>suffix_class:s_at</td>
+<td>11292</td>
+</tr>
+<tr>
+<td>suffix_class:at</td>
+<td>37394</td>
+</tr>
+<tr>
+<td>suffix_class:a_at</td>
+<td>1720</td>
+</tr>
+<tr>
+<td>suffix_class:x_at</td>
+<td>4207</td>
+</tr>
+<tr>
+<td>suffix_class:control</td>
+<td>62</td>
+</tr>
+<tr>
+<td>total_probe_sets</td>
+<td>54675</td>
+</tr>
+<tr>
+<td>noncontrol_nonconstant_denominator</td>
+<td>54517</td>
+</tr>
+<tr>
+<td>primary_eligible_probes</td>
+<td>39815</td>
+</tr>
+<tr>
+<td>primary_eligible_fraction</td>
+<td>0.730322651649944</td>
+</tr>
+<tr>
+<td>unique_testable_entrez</td>
+<td>20357</td>
+</tr>
+<tr>
+<td>genes_with_multiple_eligible_probes</td>
+<td>10281</td>
+</tr>
+</tbody>
+</table>
+<p>Mapping uses <code>hgu133plus2.db</code> 3.13.0 and <code>org.Hs.eg.db</code> 3.22.0. Stable keys are Entrez IDs; symbols are display snapshots. AFFX controls, constants, unmapped, one-to-many and <code>_x_at</code> probes are excluded. The representative order is <code>_at</code>, <code>_a_at</code>, <code>_s_at</code>; ties use pooled median then probe ID. Group labels and statistics are never used.</p>
+<p>Median collapse and all eligible probe fits provide independent summarization/technical layers. A material opposite probe is opposite in direction and itself significant by probe-level 1.2-fold TREAT BH FDR.</p>
+<h1 id="de-and-sensitivity">DE and sensitivity</h1>
+<p>P1 uses limma <code>lmFit</code>, <code>eBayes(trend=TRUE, robust=TRUE)</code>, cancer-minus-normal coefficient, BH across all 20,357 genes, and posterior-SE 95% CIs. Discovery is moderated BH FDR &lt;0.05. Priority is <code>treat(lfc=log2(1.2))</code> BH FDR &lt;0.05.</p>
+<table>
+<thead>
+<tr>
+<th>Minimum FC</th>
+<th>Minimum |log2FC|</th>
+<th>TREAT FDR &lt;0.05</th>
+<th>Up</th>
+<th>Down</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.1</td>
+<td>0.138</td>
+<td>3730</td>
+<td>2027</td>
+<td>1703</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>0.263</td>
+<td>2835</td>
+<td>1497</td>
+<td>1338</td>
+</tr>
+<tr>
+<td>1.5</td>
+<td>0.585</td>
+<td>1451</td>
+<td>680</td>
+<td>771</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>S1: group only, all 121 samples.</li>
+<li>S2: run + group in six mixed runs (n=62).</li>
+<li>S3: not applicable; no signed technical failures.</li>
+<li>QC influence: remove four reviewed candidates (n=117).</li>
+<li>S4a: <code>trend=FALSE</code>; S4b: group-aware <code>voomaByGroup</code> weights.</li>
+<li>Median collapse, probe-level and 13 leave-one-run-out fits complete the locked sensitivities.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Comparison</th>
+<th>n</th>
+<th>Spearman</th>
+<th>Pearson</th>
+<th>Priority sign</th>
+<th>Median |effect| ratio</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S1_group_only</td>
+<td>121</td>
+<td>0.936</td>
+<td>0.975</td>
+<td>100.0%</td>
+<td>1.069</td>
+</tr>
+<tr>
+<td>S2_mixed_runs</td>
+<td>62</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>100.0%</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>QC_candidate_exclusion</td>
+<td>117</td>
+<td>0.912</td>
+<td>0.975</td>
+<td>100.0%</td>
+<td>1.100</td>
+</tr>
+<tr>
+<td>S4_no_trend</td>
+<td>121</td>
+<td>1.000</td>
+<td>1.000</td>
+<td>100.0%</td>
+<td>1.000</td>
+</tr>
+<tr>
+<td>S4_group_aware</td>
+<td>121</td>
+<td>0.962</td>
+<td>0.993</td>
+<td>100.0%</td>
+<td>1.006</td>
+</tr>
+<tr>
+<td>median_collapse</td>
+<td>121</td>
+<td>0.874</td>
+<td>0.902</td>
+<td>97.0%</td>
+<td>0.960</td>
+</tr>
+</tbody>
+</table>
+<p>Green requires Spearman ≥0.90 and priority-sign concordance ≥95% for both P1/S1 and P1/S2; Amber minima are 0.80. Final status is Green. Headline genes must retain direction across core models, agree with median collapse and have no material opposite probe.</p>
+<h1 id="visualization">Visualization</h1>
+<p>F01–F15 are vector PDF/SVG and 600-dpi PNG with caption and source TSV in the complete analysis workspace. Adjusted PCA is visualization-only. Volcano categories use BH FDR despite a raw-P y-axis. Heatmap selection is TREAT-first, ≤25 genes per direction; row z-scores cap at ±2.5 and never enter DE.</p>
+<h1 id="enrichment-and-licensing">Enrichment and licensing</h1>
+<p>The universe is P1-tested unique Entrez genes annotated in the relevant resource. GO BP/CC/MF ORA tests cancer-up and normal-up separately, one-sided hypergeometric, post-intersection size 10–500, BH within ontology × direction. Reactome ORA uses the same rule. Reactome GSEA ranks all P1 genes by moderated t descending, stable Entrez tie-break, exponent 1, size 15–500 and <code>fgseaMultilevel</code>; observed exact ties are zero.</p>
+<table>
+<thead>
+<tr>
+<th>Collection</th>
+<th>Status</th>
+<th>Version</th>
+<th>Universe</th>
+<th>Eligible sets</th>
+<th>Ranking</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GO_BP_ORA</td>
+<td>completed</td>
+<td>org.Hs.eg.db 3.22.0; GO.db 3.22.0</td>
+<td>15588</td>
+<td>6187</td>
+<td>NA</td>
+</tr>
+<tr>
+<td>GO_CC_ORA</td>
+<td>completed</td>
+<td>org.Hs.eg.db 3.22.0; GO.db 3.22.0</td>
+<td>16428</td>
+<td>756</td>
+<td>NA</td>
+</tr>
+<tr>
+<td>GO_MF_ORA</td>
+<td>completed</td>
+<td>org.Hs.eg.db 3.22.0; GO.db 3.22.0</td>
+<td>16139</td>
+<td>1233</td>
+<td>NA</td>
+</tr>
+<tr>
+<td>Reactome_ORA</td>
+<td>completed</td>
+<td>1.95.0</td>
+<td>10178</td>
+<td>1658</td>
+<td>NA</td>
+</tr>
+<tr>
+<td>Reactome_preranked_GSEA_fallback</td>
+<td>completed</td>
+<td>1.95.0</td>
+<td>10178</td>
+<td>1367</td>
+<td>P1 moderated t, descending; exact ties by Entrez ID</td>
+</tr>
+<tr>
+<td>KEGG_ORA</td>
+<td>not_run_license_gate</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+<tr>
+<td>MSigDB_Hallmark_GSEA</td>
+<td>not_run_license_review_unconfirmed</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+<td>NA</td>
+</tr>
+</tbody>
+</table>
+<h1 id="runtime-and-reproducibility">Runtime and reproducibility</h1>
+<p>The runtime is defined by the pinned Conda records in <code>config/</code>; commands resolve from the active <code>PATH</code> or an optional <code>BIOINFO_ENV_PREFIX</code>. The verified environment used R 4.5.3, limma 3.66.0, fgsea 1.36.2, hgu133plus2.db 3.13.0, org.Hs.eg.db 3.22.0, GO.db 3.22.0 and reactome.db 1.95.0. <code>tests/run_tests.R</code> contains 13 guards; <code>R/05_scientific_qa.R</code> contains 32 scientific acceptance checks. A clean rebuild reproduced 10/10 key machine-readable outputs with identical SHA-256 hashes.</p>
+<p>Methods references: <a href="https://bioconductor.org/packages/limma">limma</a>, <a href="https://bioconductor.org/packages/hgu133plus2.db">hgu133plus2.db</a>, <a href="https://geneontology.org/docs/go-citation-policy/">GO</a>, <a href="https://reactome.org/license">Reactome</a>, <a href="https://bioconductor.org/packages/fgsea">fgsea</a>.</p></main></body></html>

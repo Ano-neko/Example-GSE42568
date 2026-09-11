@@ -1,0 +1,1 @@
+Pearson correlations use all eligible representative genes; average-linkage clustering uses distance 1-r.

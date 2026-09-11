@@ -1,0 +1,1 @@
+This transformed matrix is for visualization only. Differential expression uses the deposited matrix with run in the design.

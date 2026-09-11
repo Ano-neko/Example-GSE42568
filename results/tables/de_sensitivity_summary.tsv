@@ -1,0 +1,8 @@
+comparison	status	purpose	n_samples	spearman_all_tested	pearson_all_tested	sign_concordance_all_tested	p1_priority_sign_concordance	median_abs_effect_ratio_p1_priority	p1_priority_reversed_count	design_traffic_light_before_leave_one_run_out	final_design_traffic_light
+P1_vs_S1_group_only	completed	run-adjustment influence	121	0.935615212034803	0.975164564588252	0.890799233678833	1	1.06938191378254	0	Green	Green
+P1_vs_S2_mixed_runs	completed	within-run overlap evidence	62	0.999999993448152	1	0.997642088716412	1	1	0	Green	Green
+P1_vs_S3_confirmed_failure_exclusion	not_applicable	signed technical-failure exclusion	NA	NA	NA	NA	NA	NA	NA	Green	Green
+P1_vs_QC_candidate_exclusion	completed	candidate influence only	117	0.911517553580641	0.975003230881292	0.861816574151398	1	1.10041969573248	0	Green	Green
+P1_vs_S4_no_trend	completed	moderation trend choice	121	1	1	1	1	1	0	Green	Green
+P1_vs_S4_group_aware	completed	heteroskedastic group-aware weights	121	0.962405087210744	0.993436275517092	0.881171095937515	1	1.00570920573757	0	Green	Green
+P1_vs_median_collapse	completed	duplicate-probe summarization	121	0.873594387674064	0.902316501515652	0.901065972392789	0.97037037037037	0.960382742592906	84	Green	Green

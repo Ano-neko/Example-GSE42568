@@ -1,0 +1,12 @@
+metric	value
+design_formula	expression ~ processing_run_proxy + tissue_group
+design_rows	121
+design_columns	14
+design_rank	14
+full_rank	TRUE
+residual_degrees_of_freedom	107
+run_levels	13
+mixed_run_levels	6
+mixed_run_samples	62
+contrast	cancer-minus-normal
+contrast_estimable	TRUE

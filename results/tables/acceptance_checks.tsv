@@ -1,0 +1,33 @@
+check_id	domain	requirement	status	passed	hard_gate	evidence
+QA001	input	Official processed matrix checksum equals frozen specification	PASS	TRUE	TRUE	observed 43b93f72f1d81838dcd2a5b6ccc3bc1875e46230dad0d7346236773a99e32b76 expected 43b93f72f1d81838dcd2a5b6ccc3bc1875e46230dad0d7346236773a99e32b76
+QA002	input	Matrix dimensions and finite values pass	PASS	TRUE	TRUE	matrix_integrity.tsv: 54,675 probes x 121 samples; zero non-finite values
+QA003	metadata	Group counts are 104 cancer and 17 normal	PASS	TRUE	TRUE	n=121; cancer=104; normal=17
+QA004	metadata	All samples use GPL570	PASS	TRUE	TRUE	GPL570
+QA005	metadata	No unsupported paired design	PASS	TRUE	TRUE	non-missing pairing identifiers 0
+QA006	metadata	Normal-tissue provenance limitation is explicitly documented	PASS	TRUE	TRUE	metadata_issues.tsv META-002
+QA007	metadata	Age discrepancy is explicitly documented	PASS	TRUE	TRUE	metadata_issues.tsv META-001
+QA008	design	Primary design is full rank	PASS	TRUE	TRUE	14 design columns, rank 14
+QA009	design	Cancer-minus-normal contrast is estimable	PASS	TRUE	TRUE	reference=normal; coefficient=tissue_groupcancer
+QA010	design	Mixed-run evidence boundary exists	PASS	TRUE	TRUE	6 mixed runs; 62 samples
+QA011	annotation	Every platform probe has exactly one mutually exclusive mapping status	PASS	TRUE	TRUE	audit rows=54675; category total=54675
+QA012	annotation	Eligible-probe fraction passes the frozen 60% gate	PASS	TRUE	TRUE	73.03% eligible
+QA013	annotation	Unique Entrez count passes the frozen 10,000-gene gate	PASS	TRUE	TRUE	20357 unique Entrez genes
+QA014	annotation	Representative-probe selection is one per Entrez and excludes ambiguous/x probes	PASS	TRUE	TRUE	20357 representatives
+QA015	sample_QC	All processed-data QC candidates received signed review	PASS	TRUE	TRUE	4 candidates retained in primary and locked for influence sensitivity
+QA016	sample_QC	No sample is mislabelled as a confirmed technical failure	NOT_APPLICABLE_CONFIRMED_FAILURE_EXCLUSION	TRUE	TRUE	S3 is not applicable; no raw-array evidence corroborated failure
+QA017	DE	Complete primary DE table has one finite row per tested gene and all required fields	PASS	TRUE	TRUE	20,357 unique genes; finite effects/SE; P and FDR in [0,1]
+QA018	DE	Contrast label is cancer-minus-normal for every row	PASS	TRUE	TRUE	positive effect means higher expression in cancer
+QA019	DE	Priority table exactly matches P1 TREAT 1.2-fold BH FDR <0.05	PASS	TRUE	TRUE	priority=2835; cancer-up=1497; normal-up=1338
+QA020	DE	Median-collapse and probe-direction audit gate headline interpretation	PASS	TRUE	TRUE	headline eligible=2745 of 2835 priority
+QA021	sensitivity	P1/S1 and P1/S2 meet frozen Green thresholds	PASS	TRUE	TRUE	P1_vs_S1_group_only rho=0.936 priority-sign=1.000 | P1_vs_S2_mixed_runs rho=1.000 priority-sign=1.000
+QA022	sensitivity	QC-candidate exclusion does not reverse P1 priority genes	PASS	TRUE	TRUE	rho=0.912; priority sign=1.000
+QA023	sensitivity	Leave-one-run-out does not reverse priority directions	PASS	TRUE	TRUE	13/13 fits complete; minimum priority sign concordance 1.000
+QA024	sensitivity	Normal-heavy 2005-01-25 run does not collapse the effect ranking	PASS	TRUE	TRUE	rho=0.953; priority sign=1.000
+QA025	enrichment	Every enrichment-universe member is a P1-tested Entrez gene	PASS	TRUE	TRUE	GO_BP=15588; GO_CC=16428; GO_MF=16139; Reactome=10178
+QA026	enrichment	GSEA rank uses all tested genes exactly once in stable descending order	PASS	TRUE	TRUE	20,357 moderated-t values; zero exact ties
+QA027	enrichment	GO ORA contains all ontology/direction families with resource-specific denominators	PASS	TRUE	TRUE	GO rows=16352; significant BP rows=515
+QA028	enrichment	Reactome ORA and GSEA completed with explicit CC0-compatible snapshot	PASS	TRUE	TRUE	Reactome ORA rows=3316; GSEA rows=1367
+QA029	licensing	KEGG remains behind the commercial licence gate	EXPECTED_LICENSE_GATE	TRUE	TRUE	No KEGG API, definitions, cache, or maps used
+QA030	licensing	MSigDB Hallmark remains behind unconfirmed commercial-use review	EXPECTED_LICENSE_GATE	TRUE	TRUE	Reactome GSEA is the explicitly named fallback
+QA031	artifacts	Complete analysis workspace contains all F01-F15 PDF/PNG/caption and source-data files	PASS	TRUE	TRUE	Full-workspace check: 45 figure/caption files and 17 source tables; public edition is governed separately
+QA032	scope	No prohibited extension module is implemented	PASS	TRUE	TRUE	No WGCNA, survival, classifier, immune-infiltration, or drug-prediction call in executable code

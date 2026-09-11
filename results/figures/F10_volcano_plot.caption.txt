@@ -1,0 +1,1 @@
+The y-axis uses raw moderated-test P values for display, while all discovery and priority labels use BH FDR. The TREAT class tests an absolute effect greater than 1.2-fold.

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='648.00pt' height='432.00pt' viewBox='0 0 648.00 432.00'>
+<g class='svglite'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+    .svglite g.glyphgroup path {
+      fill: inherit;
+      stroke: none;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw2NDguMDB8MC4wMHw0MzIuMDA='>
+    <rect x='0.00' y='0.00' width='648.00' height='432.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw2NDguMDB8MC4wMHw0MzIuMDA=)'>
+<rect x='-0.000000000000064' y='0.000000000000057' width='648.00' height='432.00' style='stroke-width: 0.97; stroke: #FFFFFF; fill: #FFFFFF;' />
+</g>
+<defs>
+  <clipPath id='cpNTQuNzV8NjM2LjA0fDI1LjE0fDQwMy44OQ=='>
+    <rect x='54.75' y='25.14' width='581.29' height='378.75' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTQuNzV8NjM2LjA0fDI1LjE0fDQwMy44OQ==)'>
+<rect x='54.75' y='25.14' width='581.29' height='378.75' style='stroke-width: 0.97; stroke: none; fill: #FFFFFF;' />
+<polyline points='137.79,72.48 276.20,73.94 414.60,209.15 553.00,388.11 ' style='stroke-width: 2.45; stroke: #5F7C5F;' />
+<circle cx='137.79' cy='72.48' r='5.62' style='stroke-width: 1.42; stroke: #FFFFFF; fill: #779977;' />
+<circle cx='276.20' cy='73.94' r='5.62' style='stroke-width: 1.42; stroke: #FFFFFF; fill: #779977;' />
+<circle cx='414.60' cy='209.15' r='5.62' style='stroke-width: 1.42; stroke: #FFFFFF; fill: #779977;' />
+<circle cx='553.00' cy='388.11' r='5.62' style='stroke-width: 1.42; stroke: #FFFFFF; fill: #779977;' />
+<text x='137.79' y='65.03' text-anchor='middle' style='font-size: 10.24px; font-weight: bold;fill: #2F3A45; font-family: "DejaVu Sans";' textLength='39.52px' lengthAdjust='spacingAndGlyphs'>54,675</text>
+<text x='276.20' y='66.48' text-anchor='middle' style='font-size: 10.24px; font-weight: bold;fill: #2F3A45; font-family: "DejaVu Sans";' textLength='39.52px' lengthAdjust='spacingAndGlyphs'>54,517</text>
+<text x='414.60' y='201.69' text-anchor='middle' style='font-size: 10.24px; font-weight: bold;fill: #2F3A45; font-family: "DejaVu Sans";' textLength='39.52px' lengthAdjust='spacingAndGlyphs'>39,815</text>
+<text x='553.00' y='380.65' text-anchor='middle' style='font-size: 10.24px; font-weight: bold;fill: #2F3A45; font-family: "DejaVu Sans";' textLength='39.52px' lengthAdjust='spacingAndGlyphs'>20,357</text>
+</g>
+<g clip-path='url(#cpMC4wMHw2NDguMDB8MC4wMHw0MzIuMDA=)'>
+<polyline points='54.75,403.89 54.75,25.14 ' style='stroke-width: 0.96; stroke: #2F3A45; stroke-linecap: square;' />
+<text x='50.57' y='394.49' text-anchor='end' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='29.73px' lengthAdjust='spacingAndGlyphs'>20,000</text>
+<text x='50.57' y='302.52' text-anchor='end' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='29.73px' lengthAdjust='spacingAndGlyphs'>30,000</text>
+<text x='50.57' y='210.55' text-anchor='end' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='29.73px' lengthAdjust='spacingAndGlyphs'>40,000</text>
+<text x='50.57' y='118.58' text-anchor='end' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='29.73px' lengthAdjust='spacingAndGlyphs'>50,000</text>
+<polyline points='52.56,391.39 54.75,391.39 ' style='stroke-width: 0.85; stroke: #2F3A45; stroke-linecap: butt;' />
+<polyline points='52.56,299.42 54.75,299.42 ' style='stroke-width: 0.85; stroke: #2F3A45; stroke-linecap: butt;' />
+<polyline points='52.56,207.45 54.75,207.45 ' style='stroke-width: 0.85; stroke: #2F3A45; stroke-linecap: butt;' />
+<polyline points='52.56,115.48 54.75,115.48 ' style='stroke-width: 0.85; stroke: #2F3A45; stroke-linecap: butt;' />
+<text x='137.79' y='412.08' text-anchor='middle' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='43.11px' lengthAdjust='spacingAndGlyphs'>Deposited</text>
+<text x='137.79' y='421.26' text-anchor='middle' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='44.64px' lengthAdjust='spacingAndGlyphs'>probe sets</text>
+<text x='276.20' y='412.08' text-anchor='middle' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='52.19px' lengthAdjust='spacingAndGlyphs'>Non-control,</text>
+<text x='276.20' y='421.26' text-anchor='middle' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='55.98px' lengthAdjust='spacingAndGlyphs'>non-constant</text>
+<text x='414.60' y='412.08' text-anchor='middle' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='91.34px' lengthAdjust='spacingAndGlyphs'>Eligible unambiguous</text>
+<text x='414.60' y='421.26' text-anchor='middle' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='28.95px' lengthAdjust='spacingAndGlyphs'>probes</text>
+<text x='553.00' y='412.08' text-anchor='middle' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='59.62px' lengthAdjust='spacingAndGlyphs'>Unique tested</text>
+<text x='553.00' y='421.26' text-anchor='middle' style='font-size: 8.50px;fill: #55606C; font-family: "DejaVu Sans";' textLength='25.67px' lengthAdjust='spacingAndGlyphs'>genes</text>
+<text transform='translate(16.26,214.52) rotate(-90)' text-anchor='middle' style='font-size: 10.00px;fill: #2F3A45; font-family: "DejaVu Sans";' textLength='43.00px' lengthAdjust='spacingAndGlyphs'>Features</text>
+<text x='8.97' y='18.45' style='font-size: 13.00px; font-weight: bold;fill: #20262E; font-family: "DejaVu Sans";' textLength='154.50px' lengthAdjust='spacingAndGlyphs'>Analysis feature flow</text>
+</g>
+</g>
+</svg>

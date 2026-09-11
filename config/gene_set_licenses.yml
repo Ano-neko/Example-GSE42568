@@ -1,0 +1,19 @@
+GO:
+  status: allowed
+  use: ORA_BP_primary_CC_MF_supplement
+  terms_url: https://geneontology.org/docs/go-citation-policy/
+  note: Attribution required; exact annotation package version is recorded.
+Reactome:
+  status: allowed
+  use: pathway_ORA_and_preranked_GSEA
+  terms_url: https://reactome.org/license
+  note: Reactome data are CC0; citation and version are retained.
+KEGG:
+  status: not_run_license_gate
+  use: none
+  terms_url: https://www.kegg.jp/kegg/legal.html
+  note: Commercial permission was not documented; no API call, cache, or map redistribution.
+MSigDB_Hallmark:
+  status: not_run_license_review_unconfirmed
+  use: none
+  terms_url: https://www.gsea-msigdb.org/gsea/msigdb_license_terms.jsp
