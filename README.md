@@ -15,7 +15,7 @@
 </tr>
 <tr>
 <td width="50%"><img src="results/figures/F13_GO_BP_ORA_dotplot.png" alt="GO Biological Process enrichment"><br><sub>GO Biological Process enrichment</sub></td>
-<td width="50%"><img src="results/figures/F14_Reactome_GSEA_NES.png" alt="Reactome preranked GSEA"><br><sub>Reactome preranked GSEA</sub></td>
+<td width="50%"><img src="results/figures/F05_primary_PCA.png" alt="Primary PCA of breast cancer and normal samples"><br><sub>Primary sample-level PCA</sub></td>
 </tr>
 </table>
 
@@ -57,11 +57,15 @@ The downloader enforces official GEO byte sizes, gzip integrity and SHA-256. Dow
 
 The complete analysis workspace passed 32/32 Scientific QA checks. The public portfolio edition intentionally omits data, run-specific logs, high-volume figure source tables and full-workspace inventories. Its separate inclusion and integrity contract is documented in [Public portfolio acceptance](docs/PUBLIC_PORTFOLIO_ACCEPTANCE.md); QA031 remains explicitly scoped to the complete analysis workspace.
 
+## Similar analysis
+
+Interested in a similar GEO or transcriptomics analysis? Contact **Ano-neko** at [ykx22@outlook.com](mailto:ykx22@outlook.com).
+
 ## Navigate
 
-- [Client report](reports/client_report.html) · [PDF](output/pdf/client_report.pdf)
-- [Methods appendix](reports/methods_appendix.html) · [PDF](output/pdf/methods_appendix.pdf)
-- [QC appendix](reports/qc_appendix.html) · [PDF](output/pdf/qc_appendix.pdf)
+- Client report: [PDF](output/pdf/client_report.pdf) · [HTML](reports/client_report.html)
+- Methods appendix: [PDF](output/pdf/methods_appendix.pdf) · [HTML](reports/methods_appendix.html)
+- QC appendix: [PDF](output/pdf/qc_appendix.pdf) · [HTML](reports/qc_appendix.html)
 - [Scientific QA](docs/SCIENTIFIC_QA.md) · [Formal design](GSE42568_PROJECT_DESIGN.md)
 - [Delivery acceptance and project map](docs/DELIVERY_ACCEPTANCE.md)
 - [Priority DE results](results/tables/de_priority_genes.tsv) · [Gene-set/licence manifest](results/tables/gene_set_manifest.tsv)

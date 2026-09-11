@@ -15,7 +15,7 @@
 </tr>
 <tr>
 <td width="50%"><img src="results/figures/F13_GO_BP_ORA_dotplot.png" alt="GO 生物过程富集"><br><sub>GO 生物过程富集</sub></td>
-<td width="50%"><img src="results/figures/F14_Reactome_GSEA_NES.png" alt="Reactome 预排序 GSEA"><br><sub>Reactome 预排序 GSEA</sub></td>
+<td width="50%"><img src="results/figures/F05_primary_PCA.png" alt="乳腺癌与正常样本的主 PCA"><br><sub>主要样本层面 PCA</sub></td>
 </tr>
 </table>
 
@@ -57,11 +57,15 @@ BIOINFO_ENV_PREFIX="$CONDA_PREFIX" bash scripts/run_all.sh
 
 完整分析工作区已通过 32/32 项 Scientific QA。公开作品集版本有意省略数据、运行日志、高容量作图源表以及完整工作区 inventory。独立的纳入与完整性规则见[公开作品集版本验收](docs/PUBLIC_PORTFOLIO_ACCEPTANCE.md)；QA031 仍明确限定为对完整分析工作区的检查。
 
+## 类似分析
+
+如需开展类似的 GEO 或转录组分析，可通过 [ykx22@outlook.com](mailto:ykx22@outlook.com) 联系作者 **Ano-neko**。
+
 ## 项目导航
 
-- [客户报告](reports/client_report.html) · [PDF](output/pdf/client_report.pdf)
-- [方法附录](reports/methods_appendix.html) · [PDF](output/pdf/methods_appendix.pdf)
-- [QC 附录](reports/qc_appendix.html) · [PDF](output/pdf/qc_appendix.pdf)
+- 客户报告：[PDF](output/pdf/client_report.pdf) · [HTML](reports/client_report.html)
+- 方法附录：[PDF](output/pdf/methods_appendix.pdf) · [HTML](reports/methods_appendix.html)
+- QC 附录：[PDF](output/pdf/qc_appendix.pdf) · [HTML](reports/qc_appendix.html)
 - [Scientific QA](docs/SCIENTIFIC_QA.md) · [正式分析设计](GSE42568_PROJECT_DESIGN.md)
 - [交付验收与项目目录说明](docs/DELIVERY_ACCEPTANCE.md)
 - [重点差异表达结果](results/tables/de_priority_genes.tsv) · [基因集与许可清单](results/tables/gene_set_manifest.tsv)
